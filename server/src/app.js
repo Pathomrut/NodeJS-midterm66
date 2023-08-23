@@ -4,20 +4,25 @@ let bodyParser = require('body-parser')
 const app = express()
 
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended:true}))
+app.use(bodyParser.urlencoded({ extended: true }))
 
-require('./route')(app)
+require('./routes')(app)
 
-app.get('/status', function (req,res){
-    res.send('Hello nodejs server belong to nattapon')
+app.get('/status', function (req, res){
+  res.send('hello nodejs')
 })
 
-app.get('/hello/:name', function (req,res) {
-    console.log('hello - ' + req.params.name)
-    res.send('sey hello with ' + req.params.name) 
-   })
+app.get('/hello/:person', function (req, res) {
+  console.log('Hello - ' + req.params.person)
+  res.send('say hello with ' + req.params.person)
+})
+
+app.post('/hello', function (req, res) {
+  res.send('OK you post - ' + req.body.name)
+})
 
 let port = 8081
-app.listen(port, function(){
-    console.log('server running on ' + port)
+
+app.listen(port, function () {
+  console.log('server running on ' + port)
 })
